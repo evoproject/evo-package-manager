@@ -1,7 +1,7 @@
-<!-- Document Type Declaration file for PISI pspec.xml files -->
-<!-- http://www.pardus.org.tr/projeler/pisi/ -->
+<!-- Document Type Declaration file for EVOIO pspec.xml files -->
+<!-- http://www.pardus.org.tr/projeler/evoio/ -->
 
-<!ELEMENT PISI (Source,Package+,History)>
+<!ELEMENT EVOIO (Source,Package+,History)>
 
 <!-- Source Section -->
 
@@ -49,7 +49,7 @@
 
 <!ELEMENT Archive (#PCDATA)>
 <!ATTLIST Archive sha1sum CDATA #REQUIRED>
-<!-- NOTE: we can limit possible types here to the ones that pisi know -->
+<!-- NOTE: we can limit possible types here to the ones that evoio know -->
 <!ATTLIST Archive type CDATA #REQUIRED>
 <!ATTLIST Archive target CDATA #IMPLIED>
 
