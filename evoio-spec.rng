@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- RELAX NG schema file for PISI pspec.xml files -->
-<!-- http://www.pardus.org.tr/projeler/pisi/ -->
+<!-- RELAX NG schema file for EVOIO pspec.xml files -->
+<!-- http://www.pardus.org.tr/projeler/evoio/ -->
 
 <grammar xmlns="http://relaxng.org/ns/structure/1.0">
 
     <!-- Start Document -->
     <start>
-        <ref name="PISI"/>
+        <ref name="EVOIO"/>
     </start>
 
-    <!-- PISI Section -->
-    <define name="PISI">
-        <element name="PISI">
+    <!-- EVOIO Section -->
+    <define name="EVOIO">
+        <element name="EVOIO">
             <ref name="Source"/>
             <oneOrMore>
                 <ref name="Package"/>
