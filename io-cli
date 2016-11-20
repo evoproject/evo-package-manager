@@ -16,14 +16,14 @@ import traceback
 import exceptions
 import signal
 
-import pisi
-import pisi.context as ctx
-import pisi.cli.pisicli as pisicli
+import evoio
+import evoio.context as ctx
+import evoio.cli.evoiocli as evoiocli
 
 import gettext
-gettext.bindtextdomain('pisi', "/usr/share/locale")
-gettext.textdomain('pisi')
-__trans = gettext.translation('pisi', fallback=True)
+gettext.bindtextdomain('evoio', "/usr/share/locale")
+gettext.textdomain('evoio')
+__trans = gettext.translation('evoio', fallback=True)
 _ = __trans.ugettext
 
 def sig_handler(sig, frame):
@@ -35,15 +35,15 @@ def exit():
 
 def handle_exception(exception, value, tb):
     signal.signal(signal.SIGINT, signal.SIG_IGN)   # disable further interrupts
-    ui = pisi.cli.CLI() # make a temporary UI
+    ui = evoio.cli.CLI() # make a temporary UI
     show_traceback = False
 
     if exception == exceptions.KeyboardInterrupt:
         ui.error(_("Keyboard Interrupt: Exiting..."))
         exit()
-    elif isinstance(value, pisi.Error):
+    elif isinstance(value, evoio.Error):
         ui.error(_("Program terminated."))
-    elif isinstance(value, pisi.Exception):
+    elif isinstance(value, evoio.Exception):
         show_traceback = True
         ui.error(_("Unhandled internal exception.\n"
                    "Please file a bug report to <http://bugs.pardus.org.tr>."))
@@ -68,7 +68,7 @@ def handle_exception(exception, value, tb):
     if show_traceback:
         ui.info(_("\nTraceback:"))
         traceback.print_tb(tb)
-    elif not isinstance(value, pisi.Error):
+    elif not isinstance(value, evoio.Error):
         ui.info(_("Use --debug to see a traceback."))
 
     exit()
@@ -78,5 +78,5 @@ if __name__ == "__main__":
 
     signal.signal(signal.SIGTERM, sig_handler)
 
-    cli = pisicli.PisiCLI()
+    cli = evoiocli.EvoioCLI()
     cli.run_command()
