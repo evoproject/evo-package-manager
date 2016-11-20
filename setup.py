@@ -22,10 +22,10 @@ from distutils.command.build import build
 from distutils.command.install import install
 
 sys.path.insert(0, '.')
-import pisi
+import evoio
 
 IN_FILES = ("io.xml.in",)
-PROJECT = "pisi"
+PROJECT = "evoio"
 MIMEFILE_DIR = "usr/share/mime/packages"
 
 
@@ -57,7 +57,7 @@ class BuildPo(build):
         for filename in IN_FILES:
             os.system("intltool-extract --type=gettext/xml %s" % filename)
 
-        for root,dirs,filenames in os.walk("pisi"):
+        for root,dirs,filenames in os.walk("evoio"):
             for filename in filenames:
                 if filename.endswith(".py"):
                     filelist.append(os.path.join(root, filename))
@@ -110,10 +110,10 @@ class Install(install):
             destpath = os.path.join(self.root, "usr/share/locale/%s/LC_MESSAGES" % lang)
             if not os.path.exists(destpath):
                 os.makedirs(destpath)
-            shutil.copy("po/%s.mo" % lang, os.path.join(destpath, "pisi.mo"))
+            shutil.copy("po/%s.mo" % lang, os.path.join(destpath, "evoio.mo"))
 
     def installdoc(self):
-        destpath = os.path.join(self.root, "usr/share/doc/pisi")
+        destpath = os.path.join(self.root, "usr/share/doc/evoio")
         if not os.path.exists(destpath):
             os.makedirs(destpath)
         os.chdir('doc')
@@ -123,7 +123,7 @@ class Install(install):
         os.chdir('..')
 
     def generateConfigFile(self):
-        import pisi.configfile
+        import evoio.configfile
         destpath = os.path.join(self.root, "usr/share/defaults/io/")
         if not os.path.exists(destpath):
             os.makedirs(destpath)
@@ -134,7 +134,7 @@ class Install(install):
 
         ioconf = open(confFile, "w")
 
-        klasses = inspect.getmembers(pisi.configfile, inspect.isclass)
+        klasses = inspect.getmembers(evoio.configfile, inspect.isclass)
         defaults = [klass for klass in klasses if klass[0].endswith('Defaults')]
 
         for d in defaults:
@@ -154,8 +154,8 @@ class Install(install):
 
 
 
-setup(name="pisi",
-    version= pisi.__version__,
+setup(name="evoio",
+    version= evoio.__version__,
     description="io - package manager",
     long_description="Evo Project Interim Package Management",
     license="GNU GPL2",
@@ -163,7 +163,7 @@ setup(name="pisi",
     author_email="packaging@evoproject.org",
     url="https://evoproject.org",
     package_dir = {'': ''},
-    packages = ['pisi', 'pisi.cli', 'pisi.operations', 'pisi.actionsapi', 'pisi.pxml', 'pisi.scenarioapi', 'pisi.db'],
+    packages = ['evoio', 'evoio.cli', 'evoio.operations', 'evoio.actionsapi', 'evoio.pxml', 'evoio.scenarioapi', 'evoio.db'],
     scripts = ['io-cli', 'scripts/lsio', 'scripts/unio', 'scripts/check-newconfigs.py', 'scripts/revdep-rebuild'],
     cmdclass = {'build' : Build,
                 'build_po' : BuildPo,
@@ -174,7 +174,7 @@ setup(name="pisi",
 # we can use this stuff for svn snapshots in a separate
 # script, or with a parameter I don't know -- exa
 
-PISI_VERSION = pisi.__version__
+EVOIO_VERSION = evoio.__version__
 
 def getRevision():
     import os
@@ -193,6 +193,6 @@ def getRevision():
 def getVersion():
     rev = getRevision()
     if rev:
-        return "-r".join([PISI_VERSION, rev])
+        return "-r".join([EVOIO_VERSION, rev])
     else:
-        return PISI_VERSION
+        return EVOIO_VERSION
